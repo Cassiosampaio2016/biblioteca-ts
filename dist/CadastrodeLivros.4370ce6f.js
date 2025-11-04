@@ -752,15 +752,43 @@ var _livro = require("./livro");
 let biblioteca = new (0, _biblioteca.Biblioteca)();
 function adicionarLivros() {
     let titulo = prompt('Digite o titulo do livro:');
+    while(titulo == null || titulo.trim() == ''){
+        alert("erro! est\xe1 em branco");
+        titulo = prompt('Digite o titulo do livro:');
+    }
     let autor = prompt('Digite o autor do livro:');
+    while(autor == null || autor.trim() == ''){
+        alert("erro! est\xe1 em branco");
+        autor = prompt('Digite o autor do livro:');
+    }
     let ano = Number(prompt('Digite o ano:'));
+    while(isNaN(ano)){
+        alert('erro! por favor, digitar somente numeros');
+        ano = Number(prompt('Digite o ano:'));
+    }
     let paginas = Number(prompt("Digite a quantidade de p\xe1ginas:"));
+    while(isNaN(paginas)){
+        alert('erro! por favor, digitar somente numeros');
+        paginas = Number(prompt("Digite a quantidade de p\xe1ginas:"));
+    }
     let livro = new (0, _livro.Livro)(titulo, autor, ano, paginas);
     biblioteca.adicionarLivro(livro);
     alert(`livro adicionado com sucesso`);
 }
 function removerLivro() {
     let titulo = prompt('Digite o titulo do livro :');
+    let livro = biblioteca.buscarLivro(titulo);
+    while(titulo == null || titulo.trim() == ''){
+        alert("Erro! Por favor, digite o t\xedtulo corretamente.");
+        titulo = prompt("Digite o t\xedtulo do livro:");
+    }
+    if (livro) alert(` Livro
+
+          T\xedtulo: ${livro.getTitulo()}\n
+          Autor: ${livro.getAutor()}\n
+          Ano: ${livro.getAno()}
+
+          P\xe1ginas: ${livro.getPaginas()}`);
     let remover = biblioteca.removerLivro(titulo);
     if (remover) alert('Livro removido com sucesso!');
     else alert("Livro n\xe3o encontrado!");
@@ -770,14 +798,18 @@ function listarLivros() {
 }
 function buscarLivros() {
     let titulo = prompt("Digite o t\xedtulo do ivro");
-    let livro = biblioteca.buscarLivro(titulo);
-    if (livro) alert(` Livro encontrado!
+    while(titulo == null || titulo.trim() == ''){
+        alert("Erro! Por favor, digite o t\xedtulo corretamente.");
+        titulo = prompt("Digite o t\xedtulo do livro:");
+    }
+    let buscar = biblioteca.buscarLivro(titulo);
+    if (buscar) alert(` Livro encontrado!
 
-          T\xedtulo: ${livro.getTitulo()}\n
-          Autor: ${livro.getAutor()}\n
-          Ano: ${livro.getAno()}
+          T\xedtulo: ${buscar.getTitulo()}\n
+          Autor: ${buscar.getAutor()}\n
+          Ano: ${buscar.getAno()}
 
-          P\xe1ginas: ${livro.getPaginas()}`);
+          P\xe1ginas: ${buscar.getPaginas()}`);
     else alert("Livro n\xe3o encontrado!");
 }
 
@@ -803,7 +835,7 @@ class Biblioteca {
             return;
         }
         alert(`Foram encontrados ${this.livros.length} livro(s)`);
-        this.livros.forEach((l)=>alert(`${l.getTitulo()} (${l.getAutor()}, ${l.getAno()}) ${l.getPaginas()} p\xe1ginas`));
+        this.livros.forEach((l)=>alert(`${l.getTitulo()} (${l.getAutor()}, ano ${l.getAno()}) ${l.getPaginas()} p\xe1ginas`));
     }
     buscarLivro(titulo) {
         return this.livros.find((l)=>l.getTitulo().toLowerCase() == titulo);

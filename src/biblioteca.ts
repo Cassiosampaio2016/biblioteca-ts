@@ -25,7 +25,7 @@ export class Biblioteca {
 
         alert(`Foram encontrados ${this.livros.length} livro(s)`);
         this.livros.forEach(l =>
-            alert(`${l.getTitulo()} (${l.getAutor()}, ${l.getAno()}) ${l.getPaginas()} páginas`)
+            alert(`${l.getTitulo()} (${l.getAutor()}, ano ${l.getAno()}) ${l.getPaginas()} páginas`)
         );
     };
 
